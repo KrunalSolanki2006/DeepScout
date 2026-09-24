@@ -21,6 +21,9 @@ import {
   analyzeEvidence,
 } from "../AI/EvidenceAnalyzer.js";
 
+import mongoose from "mongoose";
+import { Investigation } from "../Model/investigationModel.js";
+
 const MAX_RELEVANT_SOURCES_PER_SUBQUESTION = 2;
 
 export const startInvestigation = async (
@@ -520,9 +523,43 @@ export const startInvestigation = async (
       "\n====================================\n"
     );
 
-    return res.json(
-      responsePayload
-    );
+    let savedId = null;
+    const summaryText =
+      (typeof conclusionText === "string" ? conclusionText : "") || "";
+
+    try {
+      if (mongoose.connection.readyState === 1 && req.user?.id) {
+        const savedDoc = await Investigation.create({
+          userId: req.user.id,
+          question: decomposition.question,
+          title: decomposition.question.slice(0, 150),
+          status: "completed",
+          sourceType,
+          summary: summaryText.slice(0, 500),
+          keyFindings: analysis.keyFindings || [],
+          conflictingEvidence: analysis.conflictingEvidence || [],
+          comparabilityNotes: analysis.comparabilityNotes || [],
+          conditions: analysis.conditions || [],
+          conclusion: analysis.conclusion,
+          subQuestions: subQuestionOutput,
+          metadata,
+          result: responsePayload,
+        });
+        savedId = savedDoc._id;
+      }
+    } catch (saveErr) {
+      console.warn("Could not persist investigation to database:", saveErr.message);
+    }
+
+    return res.json({
+      success: true,
+      data: {
+        ...responsePayload,
+        id: savedId,
+      },
+      ...responsePayload,
+      id: savedId,
+    });
   } catch (error) {
     console.error(
       "\nInvestigation failed:",
@@ -541,20 +578,254 @@ export const startInvestigation = async (
       )
     ) {
       return res.status(429).json({
-        error:
-          "Groq rate limit reached. Please try again shortly.",
+        success: false,
+        error: {
+          code: "RATE_LIMIT_EXCEEDED",
+          message: "Groq rate limit reached. Please try again shortly.",
+        },
+        message: "Groq rate limit reached. Please try again shortly.",
       });
     }
 
     return res.status(500).json({
-      error:
-        "Failed to investigate question",
-
+      success: false,
+      error: {
+        code: "INVESTIGATION_FAILED",
+        message: "DeepScout could not complete this investigation. Please try again.",
+      },
+      message: "DeepScout could not complete this investigation. Please try again.",
       details:
-        process.env.NODE_ENV ===
-        "development"
+        process.env.NODE_ENV === "development"
           ? message
           : undefined,
+    });
+  }
+};
+
+export const getInvestigations = async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.json({
+      success: true,
+      data: { items: [], pagination: { page: 1, limit: 20, total: 0, hasNextPage: false } },
+      investigations: [],
+    });
+  }
+
+  try {
+    const userId = req.user.id;
+    const page = Math.max(1, parseInt(req.query.page) || 1);
+    const limit = Math.min(50, Math.max(1, parseInt(req.query.limit) || 20));
+    const skip = (page - 1) * limit;
+
+    const query = { userId };
+
+    if (req.query.search && typeof req.query.search === "string" && req.query.search.trim()) {
+      query.question = { $regex: req.query.search.trim(), $options: "i" };
+    }
+
+    const [total, investigations] = await Promise.all([
+      Investigation.countDocuments(query),
+      Investigation.find(query)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .select("question title status sourceType summary createdAt result.conclusion result.keyFindings")
+        .lean(),
+    ]);
+
+    const formatted = investigations.map((doc) => {
+      const rawConclusion = doc.result?.conclusion;
+      const conclusionText =
+        doc.summary ||
+        (typeof rawConclusion === "object" ? rawConclusion?.text : rawConclusion) ||
+        (doc.result?.keyFindings?.[0]?.text ?? "");
+
+      return {
+        id: doc._id.toString(),
+        title: doc.title || doc.question,
+        question: doc.question,
+        status: doc.status || "completed",
+        sourceType: doc.sourceType,
+        createdAt: doc.createdAt,
+        conclusionPreview: conclusionText ? conclusionText.slice(0, 160) + "..." : "",
+      };
+    });
+
+    const hasNextPage = page * limit < total;
+
+    return res.json({
+      success: true,
+      data: {
+        items: formatted,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages: Math.ceil(total / limit) || 1,
+          hasNextPage,
+        },
+      },
+      investigations: formatted, // backward compatibility with frontend
+    });
+  } catch (error) {
+    console.error("Error fetching investigations:", error);
+    return res.status(500).json({
+      success: false,
+      error: {
+        code: "HISTORY_FETCH_FAILED",
+        message: "We couldn't load your investigation history.",
+      },
+      message: "We couldn't load your investigation history.",
+    });
+  }
+};
+
+export const getInvestigationById = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({
+      success: false,
+      error: {
+        code: "NOT_FOUND",
+        message: "That investigation could not be found.",
+      },
+      message: "That investigation could not be found.",
+    });
+  }
+
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({
+      success: false,
+      error: {
+        code: "DATABASE_UNAVAILABLE",
+        message: "Database is temporarily unavailable.",
+      },
+      message: "Database is temporarily unavailable.",
+    });
+  }
+
+  try {
+    const doc = await Investigation.findById(id).lean();
+    if (!doc) {
+      return res.status(404).json({
+        success: false,
+        error: {
+          code: "NOT_FOUND",
+          message: "That investigation could not be found.",
+        },
+        message: "That investigation could not be found.",
+      });
+    }
+
+    // STRICT MULTI-USER ISOLATION (Section 14 & 18 & 31)
+    // Never allow User A to see User B's investigations
+    if (doc.userId.toString() !== req.user.id.toString()) {
+      return res.status(404).json({
+        success: false,
+        error: {
+          code: "NOT_FOUND",
+          message: "That investigation could not be found.",
+        },
+        message: "That investigation could not be found.",
+      });
+    }
+
+    const payload = doc.result || doc;
+
+    return res.json({
+      success: true,
+      data: {
+        ...payload,
+        id: doc._id.toString(),
+        createdAt: doc.createdAt,
+        sourceType: doc.sourceType,
+      },
+      ...payload,
+      id: doc._id.toString(),
+      createdAt: doc.createdAt,
+      sourceType: doc.sourceType,
+    });
+  } catch (error) {
+    console.error("Error fetching investigation:", error);
+    return res.status(500).json({
+      success: false,
+      error: {
+        code: "RETRIEVAL_FAILED",
+        message: "Failed to retrieve stored investigation.",
+      },
+      message: "Failed to retrieve stored investigation.",
+    });
+  }
+};
+
+export const deleteInvestigation = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({
+      success: false,
+      error: {
+        code: "NOT_FOUND",
+        message: "That investigation could not be found.",
+      },
+      message: "That investigation could not be found.",
+    });
+  }
+
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({
+      success: false,
+      error: {
+        code: "DATABASE_UNAVAILABLE",
+        message: "Database is temporarily unavailable.",
+      },
+      message: "Database is temporarily unavailable.",
+    });
+  }
+
+  try {
+    const doc = await Investigation.findById(id);
+    if (!doc) {
+      return res.status(404).json({
+        success: false,
+        error: {
+          code: "NOT_FOUND",
+          message: "That investigation could not be found.",
+        },
+        message: "That investigation could not be found.",
+      });
+    }
+
+    // STRICT MULTI-USER ISOLATION (Section 19 & 31)
+    // User A cannot delete User B's investigation
+    if (doc.userId.toString() !== req.user.id.toString()) {
+      return res.status(404).json({
+        success: false,
+        error: {
+          code: "NOT_FOUND",
+          message: "That investigation could not be found.",
+        },
+        message: "That investigation could not be found.",
+      });
+    }
+
+    await Investigation.findByIdAndDelete(id);
+
+    return res.json({
+      success: true,
+      message: "Investigation deleted successfully.",
+      id,
+    });
+  } catch (error) {
+    console.error("Error deleting investigation:", error);
+    return res.status(500).json({
+      success: false,
+      error: {
+        code: "DELETION_FAILED",
+        message: "Failed to delete investigation.",
+      },
+      message: "Failed to delete investigation.",
     });
   }
 };

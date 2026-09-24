@@ -1,15 +1,16 @@
 import "dotenv/config";
 
 import app from "./app.js";
+import { connectDB } from "./db.js";
 
-const PORT =
-  process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
-app.listen(
-  PORT,
-  () => {
-    console.log(
-      `DeepScout server running on port ${PORT}`
-    );
-  }
-);
+const startServer = async () => {
+  await connectDB();
+
+  app.listen(PORT, () => {
+    console.log(`DeepScout server running on port ${PORT}`);
+  });
+};
+
+startServer();
