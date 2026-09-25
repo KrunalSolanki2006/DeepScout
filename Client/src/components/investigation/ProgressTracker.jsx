@@ -13,7 +13,7 @@ export const ProgressTracker = () => {
     <div className="max-w-2xl mx-auto px-4 py-8 md:py-16 space-y-8 animate-fade-in text-slate-100">
       {/* Top Header */}
       <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold tracking-wider text-cyan-300 bg-gradient-to-r from-blue-950/90 via-slate-900/90 to-blue-950/90 border border-cyan-500/40 uppercase shadow-md shadow-cyan-950/40">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold tracking-wider text-cyan-300 bg-black/90 border border-cyan-500/40 uppercase shadow-md shadow-black">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400 shadow-[0_0_6px_#22d3ee]" />
@@ -29,7 +29,7 @@ export const ProgressTracker = () => {
           "{lastSubmittedQuestion?.question}"
         </p>
 
-        <div className="flex items-center justify-center gap-2 text-xs text-slate-400 font-mono pt-1">
+        <div className="flex items-center justify-center gap-2 text-xs text-neutral-400 font-mono pt-1">
           <Clock className="w-3.5 h-3.5 text-cyan-400" />
           <span>Elapsed: {elapsedSeconds}s</span>
           <span>•</span>
@@ -38,17 +38,17 @@ export const ProgressTracker = () => {
       </div>
 
       {/* Subtle Glowing Progress Bar */}
-      <div className="w-full bg-slate-800/80 h-2 rounded-full overflow-hidden relative shadow-inner">
+      <div className="w-full bg-neutral-900 h-2 rounded-full overflow-hidden relative shadow-inner">
         <div
-          className="bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-400 h-full rounded-full transition-all duration-700 ease-out shadow-[0_0_8px_rgba(56,189,248,0.7)]"
+          className="bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-400 h-full rounded-full transition-all duration-700 ease-out shadow-[0_0_8px_rgba(56,189,248,0.7)]"
           style={{
             width: `${Math.min(100, ((currentStageIndex + 1) / STAGES.length) * 100)}%`,
           }}
         />
       </div>
 
-      {/* 5-Step Human Research Lifecycle Card */}
-      <div className="p-6 md:p-8 rounded-2xl bg-[#0F172A]/90 border border-blue-500/30 shadow-2xl shadow-blue-950/50 backdrop-blur-xl space-y-4">
+      {/* 5-Step Human Research Lifecycle Card in deep black */}
+      <div className="p-6 md:p-8 rounded-2xl bg-[#0c0c0c] border border-neutral-800 shadow-2xl shadow-black backdrop-blur-xl space-y-4">
         <div className="space-y-4">
           {STAGES.map((stage, idx) => {
             const isCompleted = idx < currentStageIndex;

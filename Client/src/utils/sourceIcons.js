@@ -144,11 +144,11 @@ export function getMonogramStyle(text = "") {
     hash |= 0;
   }
   const palettes = [
-    { bg: "bg-slate-100", text: "text-slate-700", border: "border-slate-300" },
-    { bg: "bg-blue-50", text: "text-blue-800", border: "border-blue-200" },
-    { bg: "bg-indigo-50", text: "text-indigo-800", border: "border-indigo-200" },
-    { bg: "bg-zinc-100", text: "text-zinc-800", border: "border-zinc-300" },
-    { bg: "bg-stone-100", text: "text-stone-800", border: "border-stone-300" },
+    { bg: "bg-neutral-900", text: "text-neutral-200", border: "border-neutral-700" },
+    { bg: "bg-neutral-900", text: "text-cyan-400", border: "border-cyan-500/30" },
+    { bg: "bg-neutral-900", text: "text-sky-400", border: "border-sky-500/30" },
+    { bg: "bg-neutral-900", text: "text-blue-400", border: "border-blue-500/30" },
+    { bg: "bg-neutral-900", text: "text-indigo-300", border: "border-indigo-500/30" },
   ];
   const idx = Math.abs(hash) % palettes.length;
   return palettes[idx];

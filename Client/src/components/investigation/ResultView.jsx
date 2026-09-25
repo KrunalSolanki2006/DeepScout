@@ -56,7 +56,7 @@ export const ResultView = ({ result }) => {
         ? conclusion.text
         : conclusion;
 
-    const copyText = `DEEPSCOUT INVESTIGATION REPORT
+    const copyText = `DeepScout Investigation Report
 ====================================
 Question: ${question}
 Investigated: ${formatInvestigatedDate(createdAt)}
@@ -76,24 +76,24 @@ ${keyFindings.map((f, i) => `${i + 1}. ${typeof f === "object" ? f.text : f}`).j
   return (
     <div className="max-w-4xl mx-auto px-2 sm:px-4 py-6 md:py-10 animate-fade-in text-slate-100">
       {/* Research Document Shell matching Landing Page Preview Card */}
-      <div className="border border-slate-800/90 rounded-2xl bg-[#0F172A]/90 shadow-2xl shadow-blue-950/40 overflow-hidden backdrop-blur-md transition-all">
+      <div className="border border-neutral-800 rounded-2xl bg-[#0c0c0c] shadow-2xl shadow-black overflow-hidden backdrop-blur-md transition-all">
         {/* Mock Browser / Document Header */}
-        <div className="px-5 py-3.5 bg-slate-900/95 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
+        <div className="px-5 py-3.5 bg-black/95 border-b border-neutral-800 flex items-center justify-between text-xs text-neutral-400 font-mono">
           <div className="flex items-center gap-2.5">
             <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
             <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-            <span className="text-xs sm:text-sm text-slate-200 ml-3 font-sans font-semibold">
+            <span className="text-xs sm:text-sm text-neutral-200 ml-3 font-sans font-semibold">
               DeepScout Investigation Result
             </span>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-xs text-slate-500 font-medium hidden sm:inline-block">Primary Research Document</span>
+            <span className="text-xs text-neutral-400 font-medium hidden sm:inline-block">Primary Research Document</span>
             <button
               type="button"
               onClick={handleCopyReport}
-              className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono font-medium bg-slate-850 hover:bg-slate-800 border border-slate-700/80 rounded-md text-slate-300 hover:text-white transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono font-medium bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 rounded-md text-neutral-300 hover:text-white transition-colors"
             >
               {copied ? (
                 <>
@@ -102,7 +102,7 @@ ${keyFindings.map((f, i) => `${i + 1}. ${typeof f === "object" ? f.text : f}`).j
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5 text-slate-400" />
+                  <Copy className="w-3.5 h-3.5 text-neutral-400" />
                   <span>Copy</span>
                 </>
               )}
@@ -111,13 +111,13 @@ ${keyFindings.map((f, i) => `${i + 1}. ${typeof f === "object" ? f.text : f}`).j
         </div>
 
         {/* Document Content Flow */}
-        <div className="p-6 sm:p-8 md:p-10 space-y-10 bg-[#0E1526]/80">
+        <div className="p-6 sm:p-8 md:p-10 space-y-10 bg-[#080808]">
           {/* 1. QUESTION */}
-          <header className="space-y-2 pb-4 border-b border-slate-800">
+          <header className="space-y-2 pb-4 border-b border-neutral-800">
             <div className="flex flex-wrap items-center gap-2 text-xs font-mono font-bold tracking-wider text-cyan-400 uppercase">
               <span>QUESTION</span>
               <span>•</span>
-              <span className="text-slate-400">{formatInvestigatedDate(createdAt)}</span>
+              <span className="text-neutral-400">{formatInvestigatedDate(createdAt)}</span>
               {metadata.sourceType && (
                 <>
                   <span>•</span>
@@ -180,8 +180,8 @@ ${keyFindings.map((f, i) => `${i + 1}. ${typeof f === "object" ? f.text : f}`).j
           />
 
           {/* Bottom CTA */}
-          <div className="pt-8 border-t border-slate-800/80 text-center space-y-3">
-            <p className="text-xs text-slate-400">
+          <div className="pt-8 border-t border-neutral-800 text-center space-y-3">
+            <p className="text-xs text-neutral-400">
               Have a follow-up or adjacent inquiry to explore?
             </p>
             <button
@@ -190,7 +190,7 @@ ${keyFindings.map((f, i) => `${i + 1}. ${typeof f === "object" ? f.text : f}`).j
                 clearActiveInvestigation();
                 navigate("/app");
               }}
-              className="relative group overflow-hidden inline-flex items-center gap-2 px-5 py-2.5 text-xs md:text-sm font-semibold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-[length:200%_auto] hover:bg-right rounded-xl shadow-lg shadow-blue-600/30 hover:shadow-cyan-500/30 border border-blue-400/30 transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0"
+              className="relative group overflow-hidden inline-flex items-center gap-2 px-5 py-2.5 text-xs md:text-sm font-semibold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-[length:200%_auto] hover:bg-right rounded-xl shadow-lg shadow-blue-600/30 hover:shadow-indigo-500/30 border border-blue-400/40 transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0"
             >
               <Plus className="w-4 h-4 stroke-[2.5]" />
               <span>Start a New Investigation</span>

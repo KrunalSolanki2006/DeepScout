@@ -26,7 +26,7 @@ export const MobileDrawer = ({ isOpen, onClose }) => {
       />
 
       {/* Drawer content */}
-      <div className="relative w-80 max-w-[85vw] h-full bg-[#0B1120] border-r border-slate-800 shadow-2xl z-10 flex flex-col text-slate-100">
+      <div className="relative w-80 max-w-[85vw] h-full bg-[#000000] border-r border-slate-800 shadow-2xl z-10 flex flex-col text-slate-100">
         <div className="p-3 border-b border-slate-800/80 flex items-center justify-between">
           <span className="text-xs font-semibold font-mono text-slate-300 uppercase tracking-wider">
             History & Workspace

@@ -117,15 +117,15 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const normalizedEmail = (email || "").toLowerCase().trim();
-  if (!normalizedEmail || !password) {
+  const identifier = (email || "").trim();
+  if (!identifier || !password) {
     return res.status(400).json({
       success: false,
       error: {
         code: "MISSING_CREDENTIALS",
-        message: "Email and password are required.",
+        message: "Username/Email and password are required.",
       },
-      message: "Email and password are required.",
+      message: "Username/Email and password are required.",
     });
   }
 
@@ -141,15 +141,23 @@ export const login = async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({ email: normalizedEmail });
+    // Support login via either email or username/name
+    const escapedIdentifier = identifier.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const user = await User.findOne({
+      $or: [
+        { email: identifier.toLowerCase() },
+        { name: { $regex: new RegExp(`^${escapedIdentifier}$`, "i") } },
+      ],
+    });
+
     if (!user) {
       return res.status(401).json({
         success: false,
         error: {
           code: "INVALID_CREDENTIALS",
-          message: "Incorrect email or password.",
+          message: "Incorrect username/email or password.",
         },
-        message: "Incorrect email or password.",
+        message: "Incorrect username/email or password.",
       });
     }
 

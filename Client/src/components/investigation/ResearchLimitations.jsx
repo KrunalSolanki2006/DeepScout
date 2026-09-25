@@ -31,17 +31,17 @@ export const ResearchLimitations = ({ metadata }) => {
         </p>
       </div>
 
-      <div className="p-5 md:p-6 rounded-2xl border border-slate-800 bg-[#0F172A]/90 space-y-4 text-xs md:text-sm text-slate-300 leading-relaxed shadow-xl backdrop-blur-md">
+      <div className="p-5 md:p-6 rounded-2xl border border-neutral-800 bg-[#0c0c0c] space-y-4 text-xs md:text-sm text-neutral-300 leading-relaxed shadow-xl shadow-black backdrop-blur-md">
         <p>
           DeepScout synthesizes findings strictly from gathered and verified primary sources. The conclusions reflect the specific sample populations, publication time horizons, and experimental settings documented in these studies, rather than a universal guarantee.
         </p>
 
         {partialInvestigation && hasUnresolvedItems && (
-          <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs space-y-1.5">
+          <div className="p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 text-xs space-y-1.5">
             <span className="font-semibold text-cyan-300 font-mono">
               Note on source retrieval limits:
             </span>
-            <p className="text-slate-400 leading-relaxed">
+            <p className="text-neutral-400 leading-relaxed">
               Certain specific academic queries or full text extractions were restricted by paywalls or server timeouts. Conclusions are drawn from the remaining verified empirical sources.
             </p>
           </div>

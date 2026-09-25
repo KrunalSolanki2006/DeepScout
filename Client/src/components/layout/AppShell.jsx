@@ -8,16 +8,16 @@ export const AppShell = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
-    <div className="relative h-screen bg-[#090D16] text-slate-100 flex flex-col font-sans selection:bg-blue-600/40 selection:text-white antialiased overflow-hidden">
+    <div className="relative h-screen bg-[#000000] text-neutral-100 flex flex-col font-sans selection:bg-white/20 selection:text-white antialiased overflow-hidden">
       {/* Background Architectural Grid Texture */}
       <div
-        className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 opacity-30 [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_60%,transparent_100%)]"
+        className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 opacity-20 [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_60%,transparent_100%)]"
         aria-hidden="true"
       />
 
-      {/* Top-Right Ambient Backlight */}
+      {/* Top-Right Ambient Monochrome Backlight */}
       <div
-        className="absolute top-0 right-0 w-[600px] h-[450px] bg-gradient-to-bl from-blue-600/15 via-indigo-600/10 to-transparent blur-3xl pointer-events-none z-0"
+        className="absolute top-0 right-0 w-[600px] h-[450px] bg-gradient-to-bl from-white/[0.05] via-neutral-500/[0.02] to-transparent blur-3xl pointer-events-none z-0"
         aria-hidden="true"
       />
 

@@ -120,12 +120,12 @@
   0%, 100% {
     transform: translateX(0);
     opacity: 0.45;
-    filter: drop-shadow(0 0 2px rgba(96, 165, 250, 0.4));
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
   }
   50% {
     transform: translateX(6px);
     opacity: 1;
-    filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.95));
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
   }
 }
 
@@ -133,12 +133,12 @@
   0%, 100% {
     transform: translateY(0);
     opacity: 0.45;
-    filter: drop-shadow(0 0 2px rgba(96, 165, 250, 0.4));
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
   }
   50% {
     transform: translateY(6px);
     opacity: 1;
-    filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.95));
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
   }
 }
 
@@ -148,6 +148,71 @@
 
 .animate-arrow-y {
   animation: arrowFlowY 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Card Popup Entrance Animation for Auth Cards */
+@keyframes cardPopUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(26px);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.015) translateY(-3px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-card-popup {
+  animation: cardPopUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes badgeFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.animate-badge-float {
+  animation: badgeFloat 3.5s ease-in-out infinite;
+}
+
+/* Smooth Bottom-to-Up Entrance Animation */
+@keyframes slideUpSmooth {
+  0% {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUpSmooth 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slide-up-delay-1 {
+  animation: slideUpSmooth 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+}
+
+.animate-slide-up-delay-2 {
+  animation: slideUpSmooth 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+}
+
+.animate-slide-up-delay-3 {
+  animation: slideUpSmooth 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
+}
+
+.animate-slide-up-delay-4 {
+  animation: slideUpSmooth 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
 }
 
 

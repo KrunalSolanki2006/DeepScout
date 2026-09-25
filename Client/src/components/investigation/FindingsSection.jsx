@@ -30,7 +30,7 @@ export const FindingsSection = ({
           <h2 className="text-xl font-bold tracking-tight text-white">
             Key Findings
           </h2>
-          <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-950/80 text-blue-300 border border-blue-800/60 font-mono">
+          <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-neutral-900 text-sky-400 border border-sky-500/30 font-mono">
             {keyFindings.length} Verified
           </span>
         </div>
@@ -87,7 +87,7 @@ export const FindingsSection = ({
                           href={externalUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900/80 hover:border-blue-500/40 hover:bg-slate-850/90 transition-all shadow-xs group text-xs text-slate-300 hover:text-white"
+                          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-neutral-800 bg-[#0c0c0c] hover:border-cyan-500/40 hover:bg-[#141414] transition-all shadow-xs group text-xs text-neutral-300 hover:text-white"
                           title={`Open ${publisher} website (${info.hostname}) in new tab`}
                         >
                           <SourceFavicon

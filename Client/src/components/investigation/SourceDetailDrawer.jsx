@@ -66,9 +66,9 @@ export const SourceDetailDrawer = ({
       />
 
       {/* Drawer content */}
-      <div className="relative w-full max-w-lg h-full bg-[#0B1120] text-slate-100 shadow-2xl z-10 flex flex-col border-l border-slate-800 animate-fade-in overflow-hidden">
+      <div className="relative w-full max-w-lg h-full bg-[#000000] text-slate-100 shadow-2xl z-10 flex flex-col border-l border-neutral-800 animate-fade-in overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-[#090D16]">
+        <div className="px-6 py-4 border-b border-neutral-800 flex items-center justify-between bg-[#000000]">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan-400 font-mono">
             <BookOpen className="w-3.5 h-3.5 text-cyan-400" />
             <span>Primary Evidence Source</span>
@@ -209,7 +209,7 @@ export const SourceDetailDrawer = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 border-t border-slate-800 bg-[#090D16] flex items-center justify-between gap-3">
+        <div className="p-4 border-t border-slate-800 bg-[#000000] flex items-center justify-between gap-3">
           <button
             type="button"
             onClick={onClose}

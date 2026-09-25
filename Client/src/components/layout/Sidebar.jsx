@@ -79,7 +79,7 @@ export const Sidebar = ({ onCloseMobile, onToggleCollapse }) => {
   });
 
   return (
-    <aside className="w-72 lg:w-80 h-full flex flex-col bg-[#0B1120] border-r border-slate-800/80 text-slate-200 select-none">
+    <aside className="w-72 lg:w-80 h-full flex flex-col bg-[#000000] border-r border-slate-800/80 text-slate-200 select-none">
       {/* Sidebar Header & New Investigation */}
       <div className="p-3.5 border-b border-slate-800/80 space-y-2.5">
         <div className="flex items-center gap-2">
@@ -87,7 +87,7 @@ export const Sidebar = ({ onCloseMobile, onToggleCollapse }) => {
             type="button"
             onClick={handleNew}
             disabled={investigating}
-            className="flex-1 relative group overflow-hidden inline-flex items-center justify-center gap-2 px-3 py-2 text-xs font-semibold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-[length:200%_auto] hover:bg-right rounded-xl shadow-md shadow-blue-500/25 border border-blue-400/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.01] active:scale-[0.99]"
+            className="flex-1 relative group overflow-hidden inline-flex items-center justify-center gap-2 px-3 py-2 text-xs font-semibold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-500 rounded-xl shadow-md shadow-blue-600/25 border border-blue-400/30 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-[1.01] active:scale-[0.99]"
           >
             <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
             <span>New Investigation</span>
@@ -97,7 +97,7 @@ export const Sidebar = ({ onCloseMobile, onToggleCollapse }) => {
             <button
               type="button"
               onClick={onToggleCollapse}
-              className="hidden md:inline-flex p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 border border-slate-800/80 transition-colors shrink-0"
+              className="hidden md:inline-flex p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-900 border border-neutral-800 transition-colors shrink-0"
               title="Collapse sidebar"
             >
               <PanelLeftClose className="w-4 h-4" />
@@ -107,13 +107,13 @@ export const Sidebar = ({ onCloseMobile, onToggleCollapse }) => {
 
         {/* Search input */}
         <div className="relative">
-          <Search className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <Search className="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search investigations..."
-            className="w-full pl-8 pr-3 py-1.5 text-xs bg-slate-900/90 text-white border border-slate-700/80 rounded-lg placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors shadow-inner"
+            className="w-full pl-8 pr-3 py-1.5 text-xs bg-black text-white border border-neutral-800 rounded-lg placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 focus:border-cyan-500 transition-colors shadow-inner"
           />
         </div>
       </div>
@@ -142,7 +142,7 @@ export const Sidebar = ({ onCloseMobile, onToggleCollapse }) => {
                 <button
                   type="button"
                   onClick={handleNew}
-                  className="mt-2 text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors"
+                  className="mt-2 text-xs font-semibold text-cyan-400 hover:underline transition-colors"
                 >
                   Start an Investigation
                 </button>
@@ -154,7 +154,7 @@ export const Sidebar = ({ onCloseMobile, onToggleCollapse }) => {
             {/* Recent Group */}
             {recentItems.length > 0 && (
               <div className="space-y-1">
-                <div className="px-2.5 py-1 text-[11px] font-mono font-bold tracking-wider uppercase text-slate-500">
+                <div className="px-2.5 py-1 text-[11px] font-mono font-bold tracking-wider uppercase text-neutral-500">
                   Recent
                 </div>
                 {recentItems.map((item) => {
@@ -165,8 +165,8 @@ export const Sidebar = ({ onCloseMobile, onToggleCollapse }) => {
                       onClick={() => handleSelect(item.id)}
                       className={`group relative flex items-start gap-2.5 px-2.5 py-2 rounded-lg cursor-pointer transition-all border ${
                         isActive
-                          ? "bg-slate-900/90 text-white border-blue-500/40 shadow-sm shadow-blue-950/40 font-semibold"
-                          : "hover:bg-slate-850/70 text-slate-300 hover:text-white border-transparent"
+                          ? "bg-[#141414] text-white border-l-2 border-l-cyan-400 border-neutral-800 shadow-sm font-semibold"
+                          : "hover:bg-[#111111] text-neutral-300 hover:text-white border-transparent"
                       }`}
                       role="button"
                       tabIndex={0}
@@ -178,7 +178,7 @@ export const Sidebar = ({ onCloseMobile, onToggleCollapse }) => {
                     >
                       <FileText
                         className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${
-                          isActive ? "text-cyan-400" : "text-slate-500 group-hover:text-slate-300"
+                          isActive ? "text-cyan-400" : "text-neutral-500 group-hover:text-neutral-300"
                         }`}
                       />
 
@@ -217,7 +217,7 @@ export const Sidebar = ({ onCloseMobile, onToggleCollapse }) => {
             {/* Earlier Group */}
             {earlierItems.length > 0 && (
               <div className="space-y-1 pt-2">
-                <div className="px-2.5 py-1 text-[11px] font-mono font-bold tracking-wider uppercase text-slate-500">
+                <div className="px-2.5 py-1 text-[11px] font-mono font-bold tracking-wider uppercase text-neutral-500">
                   Earlier
                 </div>
                 {earlierItems.map((item) => {
@@ -228,8 +228,8 @@ export const Sidebar = ({ onCloseMobile, onToggleCollapse }) => {
                       onClick={() => handleSelect(item.id)}
                       className={`group relative flex items-start gap-2.5 px-2.5 py-2 rounded-lg cursor-pointer transition-all border ${
                         isActive
-                          ? "bg-slate-900/90 text-white border-blue-500/40 shadow-sm shadow-blue-950/40 font-semibold"
-                          : "hover:bg-slate-850/70 text-slate-300 hover:text-white border-transparent"
+                          ? "bg-[#171717] text-white border-neutral-700 shadow-sm font-semibold"
+                          : "hover:bg-[#111111] text-neutral-300 hover:text-white border-transparent"
                       }`}
                       role="button"
                       tabIndex={0}
@@ -241,7 +241,7 @@ export const Sidebar = ({ onCloseMobile, onToggleCollapse }) => {
                     >
                       <FileText
                         className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${
-                          isActive ? "text-cyan-400" : "text-slate-500 group-hover:text-slate-300"
+                          isActive ? "text-white" : "text-neutral-500 group-hover:text-neutral-300"
                         }`}
                       />
 

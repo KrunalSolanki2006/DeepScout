@@ -52,7 +52,7 @@ export const ConflictsSection = ({
           return (
             <div
               key={idx}
-              className="p-5 md:p-6 rounded-2xl border border-slate-800/90 bg-[#0F172A]/90 space-y-4 shadow-xl backdrop-blur-md"
+              className="p-5 md:p-6 rounded-2xl border border-neutral-800 bg-[#0c0c0c] space-y-4 shadow-xl shadow-black backdrop-blur-md"
             >
               {/* Conflict Eyebrow */}
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
@@ -67,12 +67,12 @@ export const ConflictsSection = ({
 
               {/* Why Results Differ */}
               {why && (
-                <div className="p-4 rounded-xl bg-gradient-to-r from-blue-950/40 via-slate-900/60 to-cyan-950/30 border border-cyan-500/30 space-y-1.5 shadow-sm">
+                <div className="p-4 rounded-xl bg-black border border-cyan-500/30 space-y-1.5 shadow-sm">
                   <div className="flex items-center gap-1.5 text-xs font-semibold text-cyan-300 font-mono">
                     <HelpCircle className="w-3.5 h-3.5 text-cyan-400" />
                     <span>WHY MIGHT THESE RESULTS DIFFER?</span>
                   </div>
-                  <p className="text-xs md:text-sm text-slate-200 leading-relaxed">
+                  <p className="text-xs md:text-sm text-neutral-200 leading-relaxed">
                     {why}
                   </p>
                 </div>
@@ -81,7 +81,7 @@ export const ConflictsSection = ({
               {/* Referenced Sources */}
               {citedSources.length > 0 && (
                 <div className="pt-2 flex flex-wrap items-center gap-2">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 font-mono">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500 font-mono">
                     Referenced Sources:
                   </span>
                   {citedSources.map((source) => {
@@ -95,7 +95,7 @@ export const ConflictsSection = ({
                         href={externalUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs text-slate-300 hover:text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 rounded-lg transition-colors shadow-xs font-medium"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs text-neutral-300 hover:text-white bg-[#141414] hover:bg-[#1e1e1e] border border-neutral-800 hover:border-neutral-700 rounded-lg transition-colors shadow-xs font-medium"
                         title={`Open ${publisher} website (${info.hostname})`}
                       >
                         <SourceFavicon
@@ -105,7 +105,7 @@ export const ConflictsSection = ({
                           size="sm"
                         />
                         <span className="truncate max-w-[160px] font-medium">{publisher}</span>
-                        <ExternalLink className="w-3 h-3 text-slate-500 shrink-0" />
+                        <ExternalLink className="w-3 h-3 text-neutral-500 group-hover:text-cyan-400 shrink-0" />
                       </a>
                     );
                   })}

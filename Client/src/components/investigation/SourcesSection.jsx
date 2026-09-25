@@ -42,7 +42,7 @@ export const SourcesSection = ({
             <h2 className="text-xl font-bold tracking-tight text-white">
               Sources
             </h2>
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-950/80 text-blue-300 border border-blue-800/60 font-mono">
+            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-neutral-900 text-sky-400 border border-sky-500/30 font-mono">
               {allSources.length} Primary Documents
             </span>
           </div>
@@ -53,7 +53,7 @@ export const SourcesSection = ({
       </div>
 
       {/* Vertical Research Document List */}
-      <div className="divide-y divide-slate-800/80 border border-slate-800 rounded-2xl bg-[#0F172A]/90 overflow-hidden shadow-xl backdrop-blur-md">
+      <div className="divide-y divide-neutral-800/80 border border-neutral-800 rounded-2xl bg-[#0c0c0c] overflow-hidden shadow-xl shadow-black backdrop-blur-md">
         {allSources.map((source, idx) => {
           const info = extractDomainInfo(source.url);
           const publisher = source.source || info.publisher;
@@ -73,10 +73,10 @@ export const SourcesSection = ({
           return (
             <div
               key={source.id || idx}
-              className="group py-5 px-4 sm:px-6 hover:bg-slate-850/60 transition-colors flex items-start gap-4"
+              className="group py-5 px-4 sm:px-6 hover:bg-[#141414] transition-colors flex items-start gap-4"
             >
               {/* Index & Favicon & Source Identity */}
-              <span className="text-xs font-mono font-bold text-slate-500 pt-1 shrink-0">
+              <span className="text-xs font-mono font-bold text-neutral-500 pt-1 shrink-0">
                 SOURCE {displayIdx}
               </span>
 
@@ -106,11 +106,11 @@ export const SourcesSection = ({
                   >
                     <span>{publisher}</span>
                   </a>
-                  <span className="text-[11px] font-mono text-slate-400 px-2 py-0.5 bg-slate-800 rounded border border-slate-700">
+                  <span className="text-[11px] font-mono text-neutral-300 px-2 py-0.5 bg-neutral-900 rounded border border-neutral-800">
                     {domain}
                   </span>
                   {source.publishedDate && (
-                    <span className="text-[11px] text-slate-500 font-mono">
+                    <span className="text-[11px] text-neutral-500 font-mono">
                       • {source.publishedDate}
                     </span>
                   )}
@@ -122,16 +122,16 @@ export const SourcesSection = ({
                     href={externalUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-semibold text-slate-100 hover:text-cyan-300 transition-colors inline-flex items-start gap-1.5 group/link"
+                    className="text-sm font-semibold text-neutral-100 hover:text-cyan-300 transition-colors inline-flex items-start gap-1.5 group/link"
                   >
                     <span>{source.title || "Untitled Research Document"}</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover/link:text-cyan-300 shrink-0 mt-0.5" />
+                    <ExternalLink className="w-3.5 h-3.5 text-neutral-500 group-hover/link:text-cyan-300 shrink-0 mt-0.5" />
                   </a>
                 </h3>
 
                 {/* Excerpt */}
                 {source.semanticReason && (
-                  <blockquote className="text-xs text-slate-300 leading-relaxed italic pl-3 border-l-2 border-cyan-500/40 line-clamp-2">
+                  <blockquote className="text-xs text-neutral-300 leading-relaxed italic pl-3 border-l-2 border-cyan-500/40 line-clamp-2">
                     "{source.semanticReason}"
                   </blockquote>
                 )}
@@ -141,7 +141,7 @@ export const SourcesSection = ({
                   {findingLinks.map(({ fIdx }) => (
                     <span
                       key={`f-${fIdx}`}
-                      className="inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-800/60 font-mono"
+                      className="inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-full bg-neutral-900 text-emerald-400 border border-emerald-500/30 font-mono"
                     >
                       Supports Finding 0{fIdx}
                     </span>
@@ -150,7 +150,7 @@ export const SourcesSection = ({
                   {conflictLinks.map(({ cIdx }) => (
                     <span
                       key={`c-${cIdx}`}
-                      className="inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-950/80 text-amber-300 border border-amber-800/60 font-mono"
+                      className="inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-full bg-neutral-900 text-amber-400 border border-amber-500/30 font-mono"
                     >
                       Contradiction in Finding 0{cIdx}
                     </span>

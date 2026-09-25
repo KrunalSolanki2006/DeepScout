@@ -37,7 +37,7 @@ export const ConditionsSection = ({ conditions = [], comparabilityNotes = [] }) 
           <h2 className="text-xl font-bold tracking-tight text-white">
             What Matters
           </h2>
-          <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-950/80 text-blue-300 border border-blue-800/60 font-mono">
+          <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-neutral-900 text-sky-400 border border-sky-500/30 font-mono">
             {conditions.length + comparabilityNotes.length} Nuances & Conditions
           </span>
         </div>
@@ -47,7 +47,7 @@ export const ConditionsSection = ({ conditions = [], comparabilityNotes = [] }) 
       </div>
 
       {/* Rows Container */}
-      <div className="divide-y divide-slate-800/80 border border-slate-800 rounded-2xl bg-[#0F172A]/90 overflow-hidden shadow-xl backdrop-blur-md">
+      <div className="divide-y divide-neutral-800/80 border border-neutral-800 rounded-2xl bg-[#0c0c0c] overflow-hidden shadow-xl shadow-black backdrop-blur-md">
         {/* Core Conditions */}
         {conditions.map((cond, idx) => {
           const condText = typeof cond === "object" ? cond.text : cond;
@@ -55,14 +55,14 @@ export const ConditionsSection = ({ conditions = [], comparabilityNotes = [] }) 
           return (
             <div
               key={`cond-${idx}`}
-              className="p-4 sm:p-5 flex items-start gap-3.5 hover:bg-slate-850/60 transition-colors"
+              className="p-4 sm:p-5 flex items-start gap-3.5 hover:bg-[#141414] transition-colors"
             >
-              <span className="w-5 h-5 rounded-md bg-blue-950/80 text-cyan-300 flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5 border border-blue-800/60">
+              <span className="w-5 h-5 rounded-md bg-neutral-900 text-cyan-400 flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5 border border-cyan-500/30">
                 {idx + 1}
               </span>
 
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-slate-200 leading-relaxed font-normal">
+                <p className="text-sm text-neutral-200 leading-relaxed font-normal">
                   {condText}
                 </p>
               </div>
@@ -79,23 +79,23 @@ export const ConditionsSection = ({ conditions = [], comparabilityNotes = [] }) 
           return (
             <div
               key={`comp-${idx}`}
-              className="p-4 sm:p-5 flex items-start gap-3.5 bg-slate-900/40 hover:bg-slate-850/60 transition-colors"
+              className="p-4 sm:p-5 flex items-start gap-3.5 bg-black/40 hover:bg-[#141414] transition-colors"
             >
-              <span className="w-5 h-5 rounded-md bg-slate-800 text-slate-400 flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5 border border-slate-700">
+              <span className="w-5 h-5 rounded-md bg-neutral-900 text-neutral-400 flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5 border border-neutral-800">
                 {conditions.length + idx + 1}
               </span>
 
               <div className="flex-1 min-w-0 space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono font-semibold uppercase px-2 py-0.5 bg-slate-800 text-cyan-300 rounded border border-slate-700">
+                  <span className="text-[10px] font-mono font-semibold uppercase px-2 py-0.5 bg-neutral-900 text-cyan-300 rounded border border-neutral-700">
                     {typeLabel}
                   </span>
                 </div>
-                <p className="text-sm text-slate-200 leading-relaxed font-normal">
+                <p className="text-sm text-neutral-200 leading-relaxed font-normal">
                   {desc}
                 </p>
                 {why && (
-                  <p className="text-xs text-slate-400 italic pl-2.5 border-l border-cyan-500/40 mt-1.5">
+                  <p className="text-xs text-neutral-400 italic pl-2.5 border-l border-cyan-500/40 mt-1.5">
                     {why}
                   </p>
                 )}
