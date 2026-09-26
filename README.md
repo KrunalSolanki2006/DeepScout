@@ -33,11 +33,8 @@ Research questions across multiple sources, connect findings to evidence, surfac
 - [Quick Start](#-quick-start)
 - [API Overview](#-api-overview)
 - [Investigation Data](#-investigation-data)
-- [Limitations](#-limitations)
 - [Current Status](#-current-status)
-- [Future Improvements](#-future-improvements)
 - [Security](#-security)
-- [Demo](#-demo)
 - [License](#-license)
 
 ---
@@ -344,7 +341,6 @@ DeepScout/
 |---|---|---|
 | **Groq Cloud** | `GROQ_API_KEY` | Low-latency LLM inference for decomposition, scoring, claims, and analysis |
 | **SerpAPI** | `SERPAPI_API_KEY` | Google Search, Scholar, and News indexing |
-| **Tavily Search** | `TAVILY_API_KEY` | Automated fallback search engine when SerpAPI queries fail or return empty |
 
 ### Environment Configuration
 
@@ -509,18 +505,6 @@ A completed investigation returns a structured research object matching [`invest
 
 ---
 
-## ⚠️ Limitations
-
-While DeepScout is designed to reduce ungrounded statements, practical constraints remain:
-
-- **Source Availability & Blocking**: Some external websites implement aggressive anti-bot protections, captchas, or paywalls. In these cases, DeepScout falls back to search snippet summaries, which provide less depth than full-text articles.
-- **Search Engine Coverage**: Discoverability depends on index coverage from SerpAPI and Tavily. Niche, unindexed, or private corporate data cannot be retrieved.
-- **LLM Interpretation**: LLMs perform question decomposition, claim extraction, and evidence synthesis. Despite strict prompt guardrails, imperfect interpretation or classification errors can still occur.
-- **Contextual Divergence**: Differing study results do not automatically imply that one is invalid. Variations in geography, sample size, measurement instruments, and timeline often explain divergent conclusions.
-- **API Latency & Rate Limits**: Deep investigations execute multiple sequential external calls (search, scraping, and multiple LLM passes), requiring 15–40 seconds per investigation depending on network conditions.
-
----
-
 ## 📌 Current Status
 
 DeepScout is a **functional research prototype and hackathon project** demonstrating how multi-stage AI workflows can ground research in traceable evidence.
@@ -536,33 +520,11 @@ It is not currently marketed as an enterprise-grade search appliance or a certif
 
 ---
 
-## 🔮 Future Improvements
-
-Planned technical enhancements include:
-
-- **Formal StateGraph Orchestration**: Refactoring imperative controller steps into an executable LangGraph `StateGraph` in `Graph.js` with checkpointing and pause/resume capabilities.
-- **Server-Sent Events (SSE)**: Streaming live stage progression events from backend to frontend to replace client-side progress estimations.
-- **Enhanced Document Ingestion**: Native PDF parsing for scholarly articles and whitepapers.
-- **Automated Claim Corroboration**: Cross-checking individual numerical metrics across multiple independent publishers before elevating them to key findings.
-- **Investigation Export**: Exporting research dossiers to PDF, Markdown, and BibTeX citations.
-
----
-
 ## 🔐 Security
 
-- **Secrets Management**: Never commit `.env` or production credentials. Keep all API keys (`GROQ_API_KEY`, `SERPAPI_API_KEY`, `TAVILY_API_KEY`) and `JWT_SECRET` restricted to local environment files.
+- **Secrets Management**: Never commit `.env` or production credentials. Keep all API keys (`GROQ_API_KEY`, `SERPAPI_API_KEY`) and `JWT_SECRET` restricted to local environment files.
 - **HTTP-Only Cookies**: Authentication tokens are stored in `httpOnly`, `sameSite` cookies to protect against cross-site scripting (XSS) token theft.
 - **Input Sanitization & Rate Limiting**: The authentication router uses `express-rate-limit` (60 requests per 15-minute window), and Express body parsing is capped at 1MB to prevent memory exhaustion attacks.
-
----
-
-## 🎥 Demo
-
-Demonstration walkthrough:
-
-```text
-<YOUR_DEMO_VIDEO_LINK>
-```
 
 ---
 
